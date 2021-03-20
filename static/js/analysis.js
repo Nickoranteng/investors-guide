@@ -160,15 +160,16 @@ function processSubmit_analyse() {
   // console.log('test');
 
 
-  ticker = document.getElementsByClassName('token-input-token')[0].innerText.replace('×', '').replace('\n', '').trim();
-  daterange = document.getElementsByClassName('drp-selected')[0].innerText.split(" - ")
-  start_split_date = daterange[0].split("/")
-  startdate = `${start_split_date[2]}-${start_split_date[0]}-${start_split_date[1]}`
+  //var ticker = document.getElementsByClassName('token-input-token')[0].innerText.replace('×', '').replace('\n', '').trim();
+  var ticker = document.getElementsByClassName('token-input-token')[0].innerText.split(",")[0].trim()
+  var daterange = document.getElementsByClassName('drp-selected')[0].innerText.split(" - ")
+  var start_split_date = daterange[0].split("/")
+  var startdate = `${start_split_date[2]}-${start_split_date[0]}-${start_split_date[1]}`
 
-  end_split_date = daterange[1].split("/")
-  enddate = `${end_split_date[2]}-${end_split_date[0]}-${end_split_date[1]}`
+  var end_split_date = daterange[1].split("/")
+  var enddate = `${end_split_date[2]}-${end_split_date[0]}-${end_split_date[1]}`
 
-  amount = document.getElementById('val-number').value
+  var amount = document.getElementById('val-number').value
 
   // var entry = {
   //   start_date : startdate,
@@ -179,27 +180,11 @@ function processSubmit_analyse() {
   api_call = `/ticker_test?start_date=${startdate}&end_date=${enddate}&ticker=${ticker}`
 
   d3.json(api_call).then(data => {
-    //console.log(data);
+    console.log(data);
     volatility_analyse(ticker, api_call)
   });
 
-  // fetch('/ticker_test', {
-  //   method: "POST",
-  //   credentials: "include",
-  //   body: JSON.stringify(entry),
-  //   //cache: "no-cache",
-  //   headers: new Headers ({
-  //     'content-type': "application/json"
-  //   })
-  // })
-  // .then(function(response){
-  //   if (response.status != 200) {
-  //     console.log(`POST method failed: ${response}`);
-  //     return ;
-  //   }
-    // app_ticker = '/ticker_returns'
-    // volatility(ticker, app_ticker);
-    //console.log(`POST method is successful:)
+
    
 
    
@@ -217,6 +202,12 @@ function processSubmit_analyse() {
 
 
 document.getElementById('submit').addEventListener('click', processSubmit_analyse);
+/* ACTIVATE CHARTS ON TABS */
+// force a click
+comparison_tab = document.getElementById('comparison-tab1');
+evObj = document.createEvent('Events');
+evObj.initEvent('click', true, false);
+comparison_tab.dispatchEvent(evObj);
 
 /*=================================================================
            ON CHANGE PROCESSING ---- ENDS

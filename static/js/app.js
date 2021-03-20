@@ -283,106 +283,7 @@ function decline(ticker, inv_startdate, inv_enddate, value){
 }
 
 
-//=============================
 
-// function volatility(ticker){
-//        /*========Box plot id=box_plot =======STARTS*/
-//        d3.json(app_gold).then(function (app_gold_data) {
-
-//         d3.json(app_ticker).then(function (app_ticker_data) {
-
-//           var app_gold_dates = app_gold_data.map(d => d.Date)
-//           var app_gold_Returns = app_gold_data.map(d => d.Returns)
-
-//           var app_ticker_dates = app_ticker_data.map(d => d.Date)
-//           var app_ticker_Returns = app_ticker_data.map(d => d.Returns)
-
-//           // console.log(app_gold_Returns)
-//           // console.log(app_ticker_Returns)
-
-//           var xData = ['Gold Returns (%)', `${ticker} Returns %`];
-
-
-//           var yData = [
-//             app_gold_Returns,
-//             app_ticker_Returns
-//           ];
-//           var colors = ['rgba(44, 160, 101, 0.5)', 'rgba(255, 144, 14, 0.5)'];
-
-//           var data2 = [];
-
-//           for (var i = 0; i < xData.length; i++) {
-//             var result = {
-//               type: 'box',
-//               y: yData[i],
-//               name: xData[i],
-//               boxpoints: 'all',
-//               jitter: 2,
-//               // whiskerwidth: 0.2,
-//               // fillcolor: 'cls',
-//               marker: {
-//                 size: 2
-//               },
-//               // line: {
-//               //     width: 0.5
-//               // }
-//             };
-//             data2.push(result);
-//           };
-
-//           layout2 = {
-            
-//             yaxis: {
-//               autorange: true,
-//               showgrid: true,
-//               zeroline: true,
-//               dtick: 2,
-//               gridcolor: '#7f7f7f',
-//               gridwidth: 5,
-//               zerolinecolor: '#7f7f7f',
-//               zerolinewidth: 2,
-//               tickfont: {
-//                 size: 10,
-//                 color: '#7f7f7f'
-//               },
-              
-
-//             },
-
-//             xaxis: {
-             
-//               tickfont: {
-//                 size: 10,
-//                 color: '#7f7f7f'
-//               }
-              
-//             },
-//             margin: {
-//               l: 40,
-//               r: 30,
-//               b: 80,
-//               t: 100
-//             },
-//             paper_bgcolor: 'white',
-//             plot_bgcolor: 'white',
-            
-//             showlegend: true,
-//             legend: {"orientation": "h",
-//             x: 0.15,
-//             y: 1.1,}
-//           };
-
-         
-//          // Plotly.newPlot('box_plot', data2, layout2);
-
-
-
-//         });
-//       });
-
-
-//       /*========Box plot id=box_plot =======ENDS*/
-// }
 
 
 
@@ -398,7 +299,8 @@ function decline(ticker, inv_startdate, inv_enddate, value){
 function processSubmit_app() {
   // console.log('test');
 
-  var ticker = document.getElementsByClassName('token-input-token')[0].innerText.replace('×', '').replace('\n', '').trim();
+ // var ticker = document.getElementsByClassName('token-input-token')[0].innerText.replace('×', '').replace('\n', '').trim();
+  var ticker = document.getElementsByClassName('token-input-token')[0].innerText.split(",")[0].trim()
   var daterange = document.getElementsByClassName('drp-selected')[0].innerText.split(" - ")
   var start_split_date = daterange[0].split("/")
   var startdate = `${start_split_date[2]}-${start_split_date[0]}-${start_split_date[1]}`
@@ -423,6 +325,13 @@ function processSubmit_app() {
 
 document.getElementById('submit').addEventListener('click', processSubmit_app);
 
+/* ACTIVATE CHARTS ON TABS */
+// force a click
+comparison_tab = document.getElementById('comparison-tab');
+evObj = document.createEvent('Events');
+evObj.initEvent('click', true, false);
+comparison_tab.dispatchEvent(evObj);
+
 /*=================================================================
            ON CHANGE PROCESSING ---- ENDS
  ===================================================================*/
@@ -432,12 +341,8 @@ document.getElementById('submit').addEventListener('click', processSubmit_app);
 
 
 
-/* ACTIVATE CHARTS ON TABS */
-// force a click event
-comparison_tab = document.getElementById('comparison-tab');
-evObj = document.createEvent('Events');
-evObj.initEvent('click', true, false);
-comparison_tab.dispatchEvent(evObj);
+
+
 
 
 
